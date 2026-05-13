@@ -1,5 +1,9 @@
 package leave_tracking;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 public class LeaveRequest {
 	private int requestId = 0;
 	private String startDate;
@@ -33,8 +37,16 @@ public class LeaveRequest {
 		return employee;
 	}
 	
+	public int getRangeInDays() {
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate parsedStartDate = LocalDate.parse(this.startDate, dateFormatter);
+        LocalDate parsedEndDate = LocalDate.parse(this.endDate, dateFormatter);
+        
+        int days = (int)ChronoUnit.DAYS.between(parsedStartDate, parsedEndDate);
+        return days;
+	}
+	
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 }
