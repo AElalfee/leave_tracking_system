@@ -14,6 +14,7 @@ public class LeaveRequest {
 		this.endDate = endDate;
 		this.reason = reason;
 		this.employee = employee;
+		status = "Under review";
 	}
 	
 	public String getLeaveRange() {
