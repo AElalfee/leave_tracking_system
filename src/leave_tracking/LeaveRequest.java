@@ -65,6 +65,11 @@ public class LeaveRequest {
 		String oldStatus = this.status;
 		this.status = newStatus;
 		
+		if(newStatus.equals("Approved")) {
+			int days = this.getRangeInDays();
+	        this.employee.setBalance(days);
+		}
+		
 		// TODO: get currentDat and assign it while creating object.
 		StatusChange change = new StatusChange(oldStatus, newStatus, "", changeBy);
 		statusHistory.add(change);
@@ -73,7 +78,7 @@ public class LeaveRequest {
 	@Override
 	public String toString() {
 		return "LeaveRequest [requestId=" + requestId + ", startDate= " + startDate + ", endDate= " + endDate
-				+ ", status= " + status + ", reason= " + reason + ", status history = " + statusHistory + ", " + employee + "]";
+				+ ", status= " + status + ", reason= " + reason + ", statusHistory= " + statusHistory + ", " + employee + "]";
 	}
 	
 	
@@ -106,5 +111,11 @@ public class LeaveRequest {
 			 return changeBy;
 		 }
 
+		 @Override
+		 public String toString() {
+			return "[oldStatus=" + oldStatus + ", newStatus=" + newStatus + ", changeDate=" + changeDate
+					+ ", changeBy=" + changeBy + "]";
+		 }
+		 
 	}
 }
