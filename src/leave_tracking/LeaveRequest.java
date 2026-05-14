@@ -13,7 +13,6 @@ public class LeaveRequest {
 	private String status;
 	private String reason;
 	private Employee employee;
-	@SuppressWarnings("unused")
 	private ArrayList<StatusChange> statusHistory = new ArrayList<>();
 
 	public LeaveRequest(String startDate, String endDate, String reason, Employee employee) {
@@ -31,9 +30,9 @@ public class LeaveRequest {
 		int balance = this.employee.getBalance();
 		
 		if((balance - days) < 0) {
-			this.status = "Rejected";
+			setStatus("Rejected", "Automated");
 		}else {
-			this.status = "Processing";
+			setStatus("Processing", "Automated");
 		}
 	}
 	
@@ -62,24 +61,29 @@ public class LeaveRequest {
         return days;
 	}
 	
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatus(String newStatus, String changeBy) {
+		String oldStatus = this.status;
+		this.status = newStatus;
+		
+		// TODO: get currentDat and assign it while creating object.
+		StatusChange change = new StatusChange(oldStatus, newStatus, "", changeBy);
+		statusHistory.add(change);
 	}
 
 	@Override
 	public String toString() {
 		return "LeaveRequest [requestId=" + requestId + ", startDate= " + startDate + ", endDate= " + endDate
-				+ ", status= " + status + ", reason= " + reason + ", " + employee + "]";
+				+ ", status= " + status + ", reason= " + reason + ", status history = " + statusHistory + ", " + employee + "]";
 	}
 	
 	
 	public class StatusChange{
-		private String oldStatus;
-		private String newStatus;
-		private String changeDate;
-		private Employee changeBy;
+		private final String oldStatus;
+		private final String newStatus;
+		private final String changeDate;
+		private final String changeBy;
 		
-		public StatusChange(String oldStatus, String newStatus, String changeDate, Employee changeBy) {
+		public StatusChange(String oldStatus, String newStatus, String changeDate, String changeBy) {
 			this.oldStatus = oldStatus;
 			this.newStatus = newStatus;
 			this.changeDate = changeDate;
@@ -90,32 +94,17 @@ public class LeaveRequest {
 			 return oldStatus;
 		 }
 
-		 public void setOldStatus(String oldStatus) {
-			 this.oldStatus = oldStatus;
-		 }
-
 		 public String getNewStatus() {
 			 return newStatus;
-		 }
-
-		 public void setNewStatus(String newStatus) {
-			 this.newStatus = newStatus;
 		 }
 
 		 public String getChangeDate() {
 			 return changeDate;
 		 }
 
-		 public void setChangeDate(String changeDate) {
-			 this.changeDate = changeDate;
-		 }
-
-		 public Employee getChangeBy() {
+		 public String getChangeBy() {
 			 return changeBy;
 		 }
 
-		 public void setChangeBy(Employee changeBy) {
-			 this.changeBy = changeBy;
-		 }
 	}
 }
