@@ -5,7 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class LeaveRequest {
-	private int requestId = 0;
+	private static int counter = 0;
+	private int requestId;
 	private String startDate;
 	private String endDate;
 	private String status;
@@ -13,7 +14,8 @@ public class LeaveRequest {
 	private Employee employee;
 
 	public LeaveRequest(String startDate, String endDate, String reason, Employee employee) {
-		requestId = requestId + 1;
+		counter++;
+		requestId = counter;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.reason = reason;
@@ -49,4 +51,11 @@ public class LeaveRequest {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	@Override
+	public String toString() {
+		return "LeaveRequest [requestId=" + requestId + ", startDate= " + startDate + ", endDate= " + endDate
+				+ ", status= " + status + ", reason= " + reason + ", " + employee + "]";
+	}
+	
 }
