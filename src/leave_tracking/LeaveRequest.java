@@ -3,6 +3,7 @@ package leave_tracking;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 
 public class LeaveRequest {
 	private static int counter = 0;
@@ -12,6 +13,8 @@ public class LeaveRequest {
 	private String status;
 	private String reason;
 	private Employee employee;
+	@SuppressWarnings("unused")
+	private ArrayList<StatusChange> statusHistory = new ArrayList<>();
 
 	public LeaveRequest(String startDate, String endDate, String reason, Employee employee) {
 		counter++;
@@ -69,4 +72,50 @@ public class LeaveRequest {
 				+ ", status= " + status + ", reason= " + reason + ", " + employee + "]";
 	}
 	
+	
+	public class StatusChange{
+		private String oldStatus;
+		private String newStatus;
+		private String changeDate;
+		private Employee changeBy;
+		
+		public StatusChange(String oldStatus, String newStatus, String changeDate, Employee changeBy) {
+			this.oldStatus = oldStatus;
+			this.newStatus = newStatus;
+			this.changeDate = changeDate;
+			this.changeBy = changeBy;
+		}
+		
+		public String getOldStatus() {
+			 return oldStatus;
+		 }
+
+		 public void setOldStatus(String oldStatus) {
+			 this.oldStatus = oldStatus;
+		 }
+
+		 public String getNewStatus() {
+			 return newStatus;
+		 }
+
+		 public void setNewStatus(String newStatus) {
+			 this.newStatus = newStatus;
+		 }
+
+		 public String getChangeDate() {
+			 return changeDate;
+		 }
+
+		 public void setChangeDate(String changeDate) {
+			 this.changeDate = changeDate;
+		 }
+
+		 public Employee getChangeBy() {
+			 return changeBy;
+		 }
+
+		 public void setChangeBy(Employee changeBy) {
+			 this.changeBy = changeBy;
+		 }
+	}
 }
