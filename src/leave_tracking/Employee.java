@@ -12,7 +12,7 @@ public class Employee {
 		this.email = email;
 		this.department = department;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -23,6 +23,11 @@ public class Employee {
 	
 	public String getDepartment() {
 		return department;
+	}
+	
+	public LeaveRequest applyLeave(String startDate, String endDate, String reason) {
+		LeaveRequest request = new LeaveRequest(startDate, endDate, reason, this);
+		return request;
 	}
 
 }
