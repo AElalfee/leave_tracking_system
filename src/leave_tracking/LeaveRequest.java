@@ -23,6 +23,17 @@ public class LeaveRequest {
 		status = "Under review";
 	}
 	
+	public void processLeave() {
+		int days = this.getRangeInDays();
+		int balance = this.employee.getBalance();
+		
+		if((balance - days) < 0) {
+			this.status = "Rejected";
+		}else {
+			this.status = "Processing";
+		}
+	}
+	
 	public String getLeaveRange() {
 		return ("Starts from " + startDate + " Untill " + endDate);
 	}
